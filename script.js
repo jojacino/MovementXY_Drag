@@ -45,13 +45,20 @@
 
             // add on mousemove method
             elem.onmousemove = move
-
+            canvas.requestPointerLock = canvas.requestPointerLock ||
+                                        canvas.mozRequestPointerLock;
+            // lock the pointer 3d
+            canvas.requestPointerLock()
+            
             // listen for mouse release
             document.addEventListener('mouseup', (eUp) => {
 
                 // reset element onmousemove method
                 elem.onmousemove = null
-                
+                document.exitPointerLock = document.exitPointerLock || document.mozExitPointerLock;
+
+                // Attempt to unlock
+                document.exitPointerLock();
             })
         })
     }
